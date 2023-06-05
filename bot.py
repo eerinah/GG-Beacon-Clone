@@ -1,7 +1,7 @@
 import discord
 import responses
 
-async def send_message(message, user_message, username):
+async def send_message(message, user_message, username, nchannel):
     try:
         response = responses.handle_response(user_message)
 
@@ -13,8 +13,9 @@ async def send_message(message, user_message, username):
             response = username + ' said normal message: ' + response#response[1:]
         elif response[0] == '1':
             response = username + ' said hateful message: ' + response#response[1:]
-    
-        await message.channel.send(response)
+
+
+        await nchannel.send(response)
         #await message.author.send(response) if is_private else await message.channel.send(response)
     except Exception as e:
         print(e)
@@ -49,9 +50,12 @@ def run_discord_bot():
         print(f"{username} said: '{user_message}' ({channel})")
         #print(f"{message} {message.content}")
 
+        #output to the output channel
+        nchannel = client.get_channel(1115086982444482640) #send it to the output channel
+
         #if it starts with a question, then we send it to the user who sent the message
         #depending on use case we could try to figure out how to make it send to a particular person ?
-        await send_message(message, user_message, username)
+        await send_message(message, user_message, username, nchannel)
 
 
         #if it starts with a question, then we send it to the user who sent the message
