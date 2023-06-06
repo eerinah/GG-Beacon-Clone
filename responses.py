@@ -8,7 +8,9 @@ from joblib import load
 nltk.download("wordnet")
 nltk.download('stopwords')
 
+# change these file locations as required 
 model_fn = '/Users/eerinahaque/projects/scu/coen140/COEN140-group-project/data/model.joblib'
+vect_fn = '/Users/eerinahaque/projects/scu/coen140/COEN140-group-project/data/vectorizer.joblib'
 
 # remove certain pronouns from stop words to give more context 
 sw_nltk = stopwords.words('english')
@@ -20,8 +22,9 @@ sw_nltk = [w for w in sw_nltk if w not in pronouns]
 # lemmatizer
 lem = WordNetLemmatizer()
 
-# load model 
+# load model and vectorizer
 model = load(model_fn)
+vect = load(vect_fn)
 
 def text_pre_processing(input_string):
     """ Given a document (a string) preprocess the document 
@@ -43,14 +46,17 @@ def text_pre_processing(input_string):
 
     words = words.split()
     words = ' '.join([lem.lemmatize(w) for w in words])
+    
     return words
 
 def handle_response(message) -> str:
     #so message here is what is SENT by the person,
     #can preprocess the message and then maybe run the model on it
     p_message = text_pre_processing(message)
-    
+
+    pred = model.predict(vect.transform(p_message))
+
     #based on what the model returns,
     #we prefix the message with 0 (no problem), 1 (hate), or 2 (depressive)
-    p_message = '0' + p_message
+    p_message = pred + p_message
     return p_message
