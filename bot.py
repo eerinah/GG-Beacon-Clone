@@ -10,11 +10,12 @@ async def send_message(message, user_message, username, nchannel):
         #if 1 we send a message that it was hateful
         #if 2 we send a message that it was depressive
         if response[0] == '0':
-            response = username + ' said normal message: ' + response[1:]
+            response = ''
+            #response = username + ' said normal message: ' + response[1:]
         elif response[0] == '1':
-            response = username + ' said message that indicates harm towards others: ' + response[1:]
+            response = '<@&1116079807919313077>' +  username + ' said message that indicates harm towards others: ' + response[1:]
         elif response[0] == '2':
-            response = username + ' said message that indicates harm towards self: ' + response[1:]
+            response = '<@&1116079807919313077>' + username + ' said message that indicates harm towards self: ' + response[1:]
 
 
         await nchannel.send(response)

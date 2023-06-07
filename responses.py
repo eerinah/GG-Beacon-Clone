@@ -10,7 +10,7 @@ nltk.download("wordnet")
 nltk.download('stopwords')
 
 # change these file locations as required 
-model_fn = 'model.joblib'
+model_fn = 'MultNB.joblib'
 vect_fn = 'vect.joblib'
 
 # remove certain pronouns from stop words to give more context 
