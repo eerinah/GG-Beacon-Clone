@@ -13,3 +13,7 @@ Pre-processes data for machine learning models and then trains and tests three m
 ### neural_networks.ipynb
 Pre-processes data for neural networks and then trains and tests three neural networks: LSTM Layers, Bidirectional Layers, and 1-D Convolutional Networks
 
+### Discord Bot files 
+- bot.py
+- main.py
+- responses.py
